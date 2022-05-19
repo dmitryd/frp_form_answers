@@ -14,6 +14,7 @@ use TYPO3\CMS\Core\Imaging\IconFactory;
 use TYPO3\CMS\Core\Localization\LanguageService;
 use TYPO3\CMS\Core\Messaging\FlashMessage;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
+use TYPO3\CMS\Extbase\Mvc\View\NotFoundView;
 use TYPO3\CMS\Extbase\Mvc\View\ViewInterface;
 use TYPO3\CMS\Extbase\Mvc\Web\Routing\UriBuilder;
 use TYPO3\CMS\Extbase\Utility\DebuggerUtility;
@@ -126,8 +127,8 @@ class FormEntryController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionContro
         /** @var BackendTemplateView $view */
         parent::initializeView($view);
         $this->iconFactory = GeneralUtility::makeInstance(IconFactory::class);
-        
-	    if ($this->actionMethodName != 'exportAction') {
+
+	    if (!($this->view instanceof NotFoundView)) {
 	        $view->getModuleTemplate()->getDocHeaderComponent()->setMetaInformation([]);
 
 	        $pageRenderer = $this->view->getModuleTemplate()->getPageRenderer();
